@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import consts
 import login_data as ld
 
-# get session object 
+# get session object
 session_requests = requests.session()
 
 def run():
