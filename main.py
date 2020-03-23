@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 import consts
 import login_data as ld
 
@@ -29,7 +29,7 @@ def login():
 
 def get_home_url():
 
-    user = consts.payload[consts.login_key].split('@')[0]
+    user = ld.payload[consts.login_key].split('@')[0]
     home_url = consts.home_pre_part_url + user + consts.home_post_part_url
     return home_url
 
@@ -55,7 +55,7 @@ def scrape_home_page():
 
     # first get home page content
     home_content = get_home_page()
-
+    print(home_content)
 
 # === data processing === #
 
