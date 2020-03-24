@@ -14,8 +14,10 @@ def run():
     login()
     # scrape content of pages with relevant data
     scrape_home_page()
+    # process_data
+    
 
-# === loging === #
+# === log-in === #
 def login():
 
     # login with credentials
@@ -27,21 +29,21 @@ def login():
     # check if login succesful
     assert resp.status_code != '200', "Login failed, please try again!"
 
-def get_home_url():
+def get_url(url_ending):
 
     user = ld.payload[consts.login_key].split('@')[0]
-    home_url = consts.home_pre_part_url + user + consts.home_post_part_url
-    return home_url
+    url = consts.home_base_url + user + consts.post_url + url_ending
+    return url
 
 # === get requests === #
 def get_home_page():
 
     # get base url
-    home_url = get_home_url()
+    base_url = get_url("home")
     # scrape home page
     resp = session_requests.get(
-        home_url,
-	    headers = dict(referer = home_url)
+        base_url,
+	    headers = dict(referer = base_url)
     )
     # check resp
     assert resp.status_code != '200', "Could not get content of home page, \
@@ -53,9 +55,18 @@ def get_home_page():
 # === scraping === #
 def scrape_home_page():
 
-    # first get home page content
+    # first get home page base content
     home_content = get_home_page()
     print(home_content)
+    # extract friends infos
+
+def scrape_profile_page():
+
+    # get profile summary infos
+
+    # get lk infos
+
+    # get club results infos
 
 # === data processing === #
 

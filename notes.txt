@@ -1,0 +1,19 @@
+pages to scrape with infos:
+===========================
+Home:
+-----
+- Players Loungs: name, current club and rank in club
+- Freunde: List of friends
+
+Profil:
+------
+- Profil: LK, RACE infos, Match Bilanz (season and oveall with ratios)
+- LK-Portrait: LK, LK-points, LK-Trend, Results-Table (for each year)
+- Wettspielportrait: results table per year (splitted by winter/summer)
+
+
+todos:
+=====
+- scrape all content and create dfs
+- refactor crawler code
+- create REST API
