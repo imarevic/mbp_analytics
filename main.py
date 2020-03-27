@@ -1,39 +1,43 @@
-import requests
-import json
+from selenium import webdriver
 from bs4 import BeautifulSoup
 import consts
 import login_data as ld
 
-# get session object
-session_req = requests.session()
 
 def run():
     """
     main entry point of the program.
     """
+    # create driver session object
+    driver = create_driver("Chrome")
     # login to page
     login()
     # scrape content of pages with relevant data
-    #scrape_home_page()
+    scrape_home_page()
     # process_data
 
+# === driver session object === #
+def create_driver(browser_type):
+    """
+    creates driver object
+    args: browser_type (Chrome, Firefox, Safari)
+    """
+    if browser_type == "Chrome":
+        return webdriver.Chrome()
+    elif browser_type == "Firefox":
+        return webdriver.Firefox()
+    elif browser_type == "Safari":
+        return webdriver.Safar()
 
 # === log-in === #
 def login():
 
     # login with credentials
-    resp = session_req.post(
-	               consts.login_url,
-	               data = consts.payload,
-	               headers = consts.headers
-                   )
-    # check if login succesful
-    assert resp.status_code != '200', "Login failed, please try again!"
-    print(resp.headers)
+    pass
 
 def get_url(url_ending):
 
-    user = ld.payload[consts.login_key].split('@')[0]
+    user = consts.payload[consts.login_key].split('@')[0]
     url = consts.home_base_url + user + consts.variable_url + url_ending
     return url
 
@@ -42,9 +46,8 @@ def get_home_page():
 
     # get base url
     base_url = get_url("home")
-    print(base_url)
     # scrape home page
-    resp = session_req.get(
+    resp = session.get(
         base_url,
 	    headers = dict(referer = base_url)
     )
