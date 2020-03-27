@@ -7,35 +7,13 @@ Home:
 
 Profil:
 ------
-- Profil: LK, RACE infos, Match Bilanz (season and oveall with ratios)
+- Profil: LK, RACE infos, Match Bilanz (season and overall with ratios)
 - LK-Portrait: LK, LK-points, LK-Trend, Results-Table (for each year)
 - Wettspielportrait: results table per year (splitted by winter/summer)
 
 
 todos:
 =====
-- scrape all content and create dfs
+- scrape all content and create pandas dfs
 - refactor crawler code
 - create REST API
-
-
-
-
-----
-
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3
-Accept-Encoding: gzip, deflate, br
-Accept-Language: en-US,en;q=0.9
-Cache-Control: max-age=0
-Connection: keep-alive
-x Content-Length: 85
-x Content-Type: application/x-www-form-urlencoded
-x Cookie: GUEST_LANGUAGE_ID=de_DE; COOKIE_SUPPORT=true; __utmz=266645906.1579810651.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); __qca=P0-332868551-1579810651020; __gads=ID=173758c4c0c3454b:T=1579810651:S=ALNI_MYY8z5dUyIQcROZZ0usSA4a9dr1cg; sid=0; __utmc=266645906; __utma=266645906.1690261609.1579810651.1585254675.1585256785.5; USER_UUID=41LVWFaZrfpOfN5nOpsCUczkBeWrjGzU; __utmt=1; LFR_SESSION_STATE_856793=1585259174954; JSESSIONID=701C0674017603252133A58AFE4BB0FE; __utmb=266645906.29.10.1585256785; __utma=266645906.1690261609.1579810651.1585254675.1585256785.5; __utmb=266645906.30.10.1585256785; __utmc=266645906; __utmz=266645906.1579810651.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
-x Host: mybigpoint.tennis.de
-Origin: https://mybigpoint.tennis.de
-Referer: https://mybigpoint.tennis.de/home
-Sec-Fetch-Mode: navigate
-Sec-Fetch-Site: same-origin
-Sec-Fetch-User: ?1
-Upgrade-Insecure-Requests: 1
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36

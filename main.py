@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 import consts
 import login_data as ld
@@ -8,12 +9,12 @@ def run():
     """
     main entry point of the program.
     """
-    # create driver session object
+    # global driver object
     driver = create_driver("Chrome")
     # login to page
-    login()
+    driver = login(driver)
     # scrape content of pages with relevant data
-    scrape_home_page()
+    driver = scrape_home_page(driver)
     # process_data
 
 # === driver session object === #
@@ -30,10 +31,19 @@ def create_driver(browser_type):
         return webdriver.Safar()
 
 # === log-in === #
-def login():
+def login(driver):
 
     # login with credentials
-    pass
+    driver.get(consts.login_url)
+    driver.find_element_by_id(consts.login_ul)\
+        .click()
+    driver.find_element_by_id(consts.login_key) \
+        .send_keys(consts.user)
+    driver.find_element_by_id(consts.pw_key) \
+        .send_keys(consts.password)
+    driver.find_element_by_class_name("aui-button-input-submit") \
+        .click()
+    return driver
 
 def get_url(url_ending):
 
@@ -41,35 +51,35 @@ def get_url(url_ending):
     url = consts.home_base_url + user + consts.variable_url + url_ending
     return url
 
-# === get requests === #
-def get_home_page():
-
-    # get base url
-    base_url = get_url("home")
-    # scrape home page
-    resp = session.get(
-        base_url,
-	    headers = dict(referer = base_url)
-    )
-    # check resp
-    assert resp.status_code != '200', "Could not get content of home page, \
-                                       please try again!"
-
-    return resp.content
-
 
 # === scraping === #
-def scrape_home_page():
+def scrape_home_page(driver):
+
+    # wait for page to payload
+    # TODO: implement generic function
+    #       that waits for page to be loaded from previous step 
 
     # first get home page base content
-    home_html = get_home_page()
+    home_html = driver.page_source
     home_content = BeautifulSoup(home_html, 'html.parser')
-    #infos_content = home_content.find_all('div', class_='aui-column-content')
-    #[print(i) for i in infos_content]
-    print(home_content.prettify())
+    # extract general infos
+    info_elems = list(home_content.find_all('div', class_='aui-column-content'))
+    for i, elem in enumerate(info_elems):
+        if elem.text == ' Verein ':
+            consts.data['info_club'] = info_elems[i+1].text.strip()
+        elif elem.text == ' Mannschaften ':
+            season_inf = info_elems[i+1].text
+            season_split = season_inf.split("  ")
+            consts.data['info_season'] = season_split[0]
+            comp_rank_split = season_split[1].split(", ")
+            consts.data['info_competition'] = comp_rank_split[0]
+            consts.data['info_rank'] = comp_rank_split[1]
+
     # extract friends infos
 
-def scrape_profile_page():
+    return driver
+
+def scrape_profile_page(driver):
     pass
     # get profile summary infos
 
