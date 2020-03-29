@@ -1,8 +1,13 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 from bs4 import BeautifulSoup
 import consts
 import login_data as ld
+import pandas as pd
+import json
 
 
 def run():
@@ -43,6 +48,7 @@ def login(driver):
         .send_keys(consts.password)
     driver.find_element_by_class_name("aui-button-input-submit") \
         .click()
+
     return driver
 
 def get_url(url_ending):
@@ -55,10 +61,10 @@ def get_url(url_ending):
 # === scraping === #
 def scrape_home_page(driver):
 
-    # wait for page to payload
-    # TODO: implement generic function
-    #       that waits for page to be loaded from previous step 
-
+    # check if target page loaded
+    check_page_loaded(driver, 5, "CLASS_NAME", "aui-column-content")
+    # initial empty dict for data
+    temp_inf = {}
     # first get home page base content
     home_html = driver.page_source
     home_content = BeautifulSoup(home_html, 'html.parser')
@@ -66,16 +72,17 @@ def scrape_home_page(driver):
     info_elems = list(home_content.find_all('div', class_='aui-column-content'))
     for i, elem in enumerate(info_elems):
         if elem.text == ' Verein ':
-            consts.data['info_club'] = info_elems[i+1].text.strip()
+            temp_inf['info_club'] = info_elems[i+1].text.strip()
         elif elem.text == ' Mannschaften ':
             season_inf = info_elems[i+1].text
             season_split = season_inf.split("  ")
-            consts.data['info_season'] = season_split[0]
+            temp_inf['info_season'] = season_split[0]
             comp_rank_split = season_split[1].split(", ")
-            consts.data['info_competition'] = comp_rank_split[0]
-            consts.data['info_rank'] = comp_rank_split[1]
+            temp_inf['info_competition'] = comp_rank_split[0]
+            temp_inf['info_rank'] = comp_rank_split[1]
 
     # extract friends infos
+
 
     return driver
 
@@ -90,6 +97,32 @@ def scrape_profile_page(driver):
 # === data processing === #
 
 
+# helper functions
+def check_page_loaded(driver, delay, elem_type, elem_name):
+    """
+    check if an element is loaded on a page.
+    Throws timeout exception if not loaded after specific delay.
+    args:
+    driver: webdriver object
+    delay: delay to wait before abort
+    elem_type: type of element to check for (CLASS_NAME, ID, NAME)
+    """
+
+    try:
+        if elem_type == "CLASS_NAME":
+            elem = WebDriverWait(driver, delay) \
+                .until(EC.presence_of_element_located((By.CLASS_NAME, elem_name)))
+        elif elem_type == "ID":
+            elem = WebDriverWait(driver, delay) \
+                .until(EC.presence_of_element_located((By.ID, elem_name)))
+        elif elem_type == "NAME":
+            elem = WebDriverWait(driver, delay) \
+                .until(EC.presence_of_element_located((By.NAME, elem_name)))
+
+        print("The page element <" , elem_name, "> is ready!")
+
+    except TimeoutException:
+        print("Loading page took to long. Please try again.")
 
 if __name__ == '__main__':
     run()

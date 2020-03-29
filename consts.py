@@ -24,10 +24,9 @@ variable_url = "/~/10555/"
 #wettspielportrait
 
 
-# data dict
-data = {
-    'info_club' : None,
-    'info_season' : None,
-    'info_competition' : None,
-    'info_rank' : None
-}
+# data placeholders
+data_general_info = None
+data_friends = None
+data_profile_general = None
+data_lk_profile = None
+data_comp_profile = None
