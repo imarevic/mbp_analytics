@@ -23,10 +23,6 @@ variable_url = "/~/10555/"
 #lk-portrait
 #wettspielportrait
 
-
-# data placeholders
-data_general_info = None
-data_friends = None
-data_profile_general = None
-data_lk_profile = None
-data_comp_profile = None
+d_inf = None
+d_friends = None
+d_profile = None
