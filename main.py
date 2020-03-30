@@ -21,6 +21,8 @@ def run_scraper():
     # scrape content of pages with relevant data
     driver, c.d_inf, c.d_friends = scrape_home_page(driver)
     driver, c.d_profile = scrape_profile_page(driver)
+    print(c.d_inf, c.d_friends)
+    print(c.d_profile)
     # post process_data
 
 # === driver session object === #
@@ -92,7 +94,7 @@ def scrape_home_page(driver):
         'friends' : friends_list
     }
 
-    return driver, dict_to_json(data_inf), dict_to_json(data_friends)
+    return driver, data_inf, data_friends
 
 def scrape_profile_page(driver):
 
@@ -125,7 +127,7 @@ def scrape_profile_page(driver):
         value_txt = elem[1].text.strip()
         data_profile[key_txt] = value_txt
 
-    return driver , dict_to_json(data_profile)
+    return driver , data_profile
 
 
 def scrape_lk_page(driver):
@@ -166,14 +168,14 @@ def check_page_loaded(driver, delay, elem_type, elem_name):
     except TimeoutException:
         print("Loading page took to long. Please try again.")
 
-def dict_to_json(dict_obj):
+def pandas_to_json(pandas_df, orientation='index'):
     """
-    converts  python dict to json string
+    converts  pandas df to json string
     args:
     dict_obj: dictionary object
     returns: json string
     """
-    return json.dumps(dict_obj)
+    return pandas_df.to_json(orient=orientation)
 
 
 if __name__ == '__main__':
