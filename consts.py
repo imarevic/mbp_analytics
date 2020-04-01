@@ -1,4 +1,4 @@
-from login_data import u_name, pw
+from login_data import u_name, pw 
 
 # login url
 login_url = "https://mybigpoint.tennis.de"
