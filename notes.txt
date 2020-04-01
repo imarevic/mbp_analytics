@@ -9,7 +9,6 @@ Profil:
 ------
 - Profil: LK, RACE infos, Match Bilanz (season and overall with ratios)
 - LK-Portrait: LK, LK-points, LK-Trend, Results-Table (for each year)
-- Wettspielportrait: results table per year (splitted by winter/summer)
 
 
 todos:

@@ -19,10 +19,9 @@ def run_scraper():
     # login to page
     driver = login(driver)
     # scrape content of pages with relevant data
-    driver, c.d_inf, c.d_friends = scrape_home_page(driver)
-    driver, c.d_profile = scrape_profile_page(driver)
-    print(c.d_inf, c.d_friends)
-    print(c.d_profile)
+    driver, d_inf, d_friends = scrape_home_page(driver)
+    driver, d_profile = scrape_profile_page(driver)
+    driver, d_lk = scrape_lk_page(driver)
     # post process_data
 
 # === driver session object === #
@@ -131,15 +130,82 @@ def scrape_profile_page(driver):
 
 
 def scrape_lk_page(driver):
-    pass
 
-def scrape_club_games_page(driver):
-    pass
+    driver.find_element_by_link_text("Generali LK-Portrait") \
+        .click()
+    # check if target page loaded
+    check_page_loaded(driver, 5, "CLASS_NAME", "bp-list-menu")
+    lk_html = driver.page_source
+    lk_content =  BeautifulSoup(lk_html, 'html.parser')
+    lk_year_elems = list(lk_content \
+            .find_all('ul', class_='bp-list-menu')[1] \
+            .findChildren(recursive=False))
+    # iterate over years and get table infos
+    data_lk = {}
+    for elem in lk_year_elems:
+        # extract data and add to dict
+        season_year = elem.text.strip()
+        print('Retrieving ', season_year, ' details...')
+        data_lk[season_year] = get_lk_details(driver, season_year)
+
+    return driver, data_lk
+
+def get_lk_details(driver, year):
+
+    driver.find_element_by_link_text(year).click()
+    # check if target page loaded
+    check_page_loaded(driver, 5, "CLASS_NAME", "taglib-search-iterator")
+    lk_details_html = driver.page_source
+    lk_details_content = BeautifulSoup(lk_details_html, 'html.parser')
+    lk_details_table = list(
+        lk_details_content \
+        .find_all('table', class_='taglib-search-iterator')[0] \
+        .find_all('tr', class_='listing-row')
+        )
+    lk_details_table = lk_details_table[:-1] # rm lat elem (not needed)
+    lk_details_table = [elem.find_all('td') for elem in lk_details_table]
+    # get data row wise
+    data_tr_dict = {
+        'date' : [],
+        'oponent' : [],
+        'score' : [],
+        'result' : [],
+        'lk_points' : [],
+        'bonus_points' : [],
+        'contest' : []
+    }
+    for i, row in enumerate(lk_details_table):
+        # selection logic
+        row_length = len(row)
+        if row_length == 7:
+            data_tr_dict['date'].append(row[0].text.strip())
+            data_tr_dict['oponent'].append(row[1].text.strip())
+            data_tr_dict['score'].append(row[2].text.strip())
+            data_tr_dict['result'].append(row[3].text.strip())
+            data_tr_dict['lk_points'].append(row[4].text.strip())
+            data_tr_dict['bonus_points'].append(row[5].text.strip())
+            data_tr_dict['contest'].append(row[6].text.strip())
+        else:
+            data_tr_dict['date'].append(row[0].text.strip()) if row_length==4 else data_tr_dict['date'].append(data_tr_dict['date'][i-1])
+            data_tr_dict['contest'].append('Tournament: ' + row[1].text.strip()) if row_length==4 else data_tr_dict['contest'].append(data_tr_dict['contest'][i-1])
+            data_tr_dict['oponent'].append(row[0].text.strip()) if row_length==6 else data_tr_dict['oponent'].append('irrelevant')
+            data_tr_dict['score'].append(row[1].text.strip()) if row_length==6 else data_tr_dict['score'].append('irrelevant')
+            data_tr_dict['result'].append(row[2].text.strip()) if row_length==6 else data_tr_dict['result'].append('irrelevant')
+            data_tr_dict['lk_points'].append(row[3].text.strip()) if row_length==6 else data_tr_dict['lk_points'].append('irrelevant')
+            data_tr_dict['bonus_points'].append("n/a")
+
+    return data_tr_dict
+
 
 # === data processing === #
 # TODO:
+# save data to disk during development (testing of data processing)
 # profile data: create win and loss codings
 # bring data into format that can be used in frontend
+def process_data(inf_dict, friends_dict, profile_dict, lk_dict):
+    pass
+
+
 
 # === helper functions === #
 def check_page_loaded(driver, delay, elem_type, elem_name):
