@@ -23,7 +23,8 @@ def run_scraper():
     driver, d_profile = scrape_profile_page(driver)
     driver, d_lk = scrape_lk_page(driver)
     # post process_data
-
+    process_data(d_inf, d_friends, d_profile, d_lk)
+    
 # === driver session object === #
 def create_driver(browser_type):
     """
