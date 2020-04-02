@@ -1,4 +1,4 @@
-from .login_data import u_name, pw 
+from .login_data import u_name, pw
 
 # login url
 login_url = "https://mybigpoint.tennis.de"
@@ -18,11 +18,10 @@ profile_base_url = "https://mybigpoint.tennis.de/web/"
 # variable part of urls
 variable_url = "/~/10555/"
 
-#freunde1
-#ubersicht
-#lk-portrait
-#wettspielportrait
-
-d_inf = None
-d_friends = None
-d_profile = None
+# profile df cor names
+profile_col_names = ['lk', 'race_position', 'race_position_in_club', 'race_points',
+                      'result_singles_season', 'result_doubles_season',
+                      'result_singles_career', 'result_doubles_career',
+                      'result_home_singles_career', 'result_away_singles_career',
+                      'result_tiebreak_singles_season', 'result_tiebreak_singles_career',
+                      'result_match_tiebreak_singles_season', 'result_match_tiebreak_singles_career']

@@ -38,3 +38,17 @@ def pandas_to_json(pandas_df, orientation='index'):
     returns: json string
     """
     return pandas_df.to_json(orient=orientation)
+
+def merge_dict_of_dicts(list_of_dicts):
+    """
+    merges list of dicts
+    arg: list of dicts (to be merged)
+    returns: merged dict
+    """
+    final_dict = {}
+    for d in list_of_dicts:
+        for k, v in d.items():
+            final_dict.setdefault(k, []).append(v)
+
+    final_dict.update((k, [item for sublist in v for item in sublist]) for k,v in final_dict.items())
+    return final_dict

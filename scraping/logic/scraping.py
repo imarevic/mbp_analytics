@@ -2,7 +2,7 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from . import consts as c
-from .helpers import check_page_loaded
+from .helpers import check_page_loaded, merge_dict_of_dicts
 # === driver session object === #
 def create_driver(browser_type):
     """
@@ -120,14 +120,17 @@ def scrape_lk_page(driver):
             .find_all('ul', class_='bp-list-menu')[1] \
             .findChildren(recursive=False))
     # iterate over years and get table infos
-    data_lk = {}
+    lk_dict_list = []
     for elem in lk_year_elems:
         # extract data and add to dict
         season_year = elem.text.strip()
         print('Retrieving ', season_year, ' details...')
-        data_lk[season_year] = get_lk_details(driver, season_year)
+        lk_temp_dict = get_lk_details(driver, season_year)
+        lk_dict_list.append(lk_temp_dict)
+    # merge list of dicts in final dict
+    final_lk_dict = merge_dict_of_dicts(lk_dict_list)
 
-    return driver, data_lk
+    return driver, final_lk_dict
 
 def get_lk_details(driver, year):
 
@@ -141,10 +144,11 @@ def get_lk_details(driver, year):
         .find_all('table', class_='taglib-search-iterator')[0] \
         .find_all('tr', class_='listing-row')
         )
-    lk_details_table = lk_details_table[:-1] # rm lat elem (not needed)
+    lk_details_table = lk_details_table[:-1] # rm last elem (not needed)
     lk_details_table = [elem.find_all('td') for elem in lk_details_table]
     # get data row wise
-    data_tr_dict = {
+    data_lk_dict = {
+        'season_year' : [],
         'date' : [],
         'oponent' : [],
         'score' : [],
@@ -157,20 +161,22 @@ def get_lk_details(driver, year):
         # selection logic
         row_length = len(row)
         if row_length == 7:
-            data_tr_dict['date'].append(row[0].text.strip())
-            data_tr_dict['oponent'].append(row[1].text.strip())
-            data_tr_dict['score'].append(row[2].text.strip())
-            data_tr_dict['result'].append(row[3].text.strip())
-            data_tr_dict['lk_points'].append(row[4].text.strip())
-            data_tr_dict['bonus_points'].append(row[5].text.strip())
-            data_tr_dict['contest'].append(row[6].text.strip())
+            data_lk_dict['season_year'].append(year)
+            data_lk_dict['date'].append(row[0].text.strip())
+            data_lk_dict['oponent'].append(row[1].text.strip())
+            data_lk_dict['score'].append(row[2].text.strip())
+            data_lk_dict['result'].append(row[3].find('img', alt=True)['alt'].strip()) if row[3].text.strip() != '-' else data_lk_dict['result'].append('irrelevant')
+            data_lk_dict['lk_points'].append(row[4].text.strip())
+            data_lk_dict['bonus_points'].append(row[5].text.strip())
+            data_lk_dict['contest'].append(row[6].text.strip())
         else:
-            data_tr_dict['date'].append(row[0].text.strip()) if row_length==4 else data_tr_dict['date'].append(data_tr_dict['date'][i-1])
-            data_tr_dict['contest'].append('Tournament: ' + row[1].text.strip()) if row_length==4 else data_tr_dict['contest'].append(data_tr_dict['contest'][i-1])
-            data_tr_dict['oponent'].append(row[0].text.strip()) if row_length==6 else data_tr_dict['oponent'].append('irrelevant')
-            data_tr_dict['score'].append(row[1].text.strip()) if row_length==6 else data_tr_dict['score'].append('irrelevant')
-            data_tr_dict['result'].append(row[2].text.strip()) if row_length==6 else data_tr_dict['result'].append('irrelevant')
-            data_tr_dict['lk_points'].append(row[3].text.strip()) if row_length==6 else data_tr_dict['lk_points'].append('irrelevant')
-            data_tr_dict['bonus_points'].append("n/a")
-
-    return data_tr_dict
+            data_lk_dict['season_year'].append(year)
+            data_lk_dict['date'].append(row[0].text.strip()) if row_length==4 else data_lk_dict['date'].append(data_lk_dict['date'][i-1])
+            data_lk_dict['contest'].append('Tournament: ' + row[1].text.strip()) if row_length==4 else data_lk_dict['contest'].append(data_lk_dict['contest'][i-1])
+            data_lk_dict['oponent'].append(row[0].text.strip()) if row_length==6 else data_lk_dict['oponent'].append('irrelevant')
+            data_lk_dict['score'].append(row[1].text.strip()) if row_length==6 else data_lk_dict['score'].append('irrelevant')
+            data_lk_dict['result'].append(row[2].find('img', alt=True)['alt'].strip()) if (row_length==6 and row[2].text.strip() != '-') else data_lk_dict['result'].append('irrelevant')
+            data_lk_dict['lk_points'].append(row[3].text.strip()) if row_length==6 else data_lk_dict['lk_points'].append('irrelevant')
+            data_lk_dict['bonus_points'].append("n/a")
+        
+    return data_lk_dict
