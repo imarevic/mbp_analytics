@@ -1,8 +1,8 @@
 # scraping logic
 from selenium import webdriver
 from bs4 import BeautifulSoup
-import consts as c
-from logic.helpers import check_page_loaded
+from . import consts as c
+from .helpers import check_page_loaded
 # === driver session object === #
 def create_driver(browser_type):
     """

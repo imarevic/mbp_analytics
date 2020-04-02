@@ -1,2 +1,2 @@
 # ignore local login data
-login_data.py
+logic/login_data.py
