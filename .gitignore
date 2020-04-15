@@ -1,8 +1,10 @@
 # global ignores
 venv/
-*.pyc
 __pycache__/
 instance/
+
+*.pyc
+chromedriver
 
 # ignore local login data
 scraping/logic/login_data.py
