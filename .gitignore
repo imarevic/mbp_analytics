@@ -1,2 +1,8 @@
+# global ignores
+venv/
+*.pyc
+__pycache__/
+instance/
+
 # ignore local login data
 scraping/logic/login_data.py

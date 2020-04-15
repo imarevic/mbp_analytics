@@ -17,13 +17,13 @@ def run_scraper():
     #driver, d_inf, d_friends = sc.scrape_home_page(driver)
     #driver, d_profile = sc.scrape_profile_page(driver)
     #driver, d_lk = sc.scrape_lk_page(driver)
-    #t.save_dicts(d_inf, d_friends, d_profile, d_lk)
     # post process_data
+    #t.save_dicts(d_inf, d_friends, d_profile, d_lk)
     d_inf, d_friends, d_profile, d_lk = t.load_dicts('d_inf_dict',
                                                     'd_friends_dict',
                                                     'd_profile_dict',
                                                     'd_lk_dict')
-    process_data(d_inf, d_friends, d_profile, d_lk)
+    j_inf, j_friends, j_profile, j_lk = process_data(d_inf, d_friends, d_profile, d_lk)
+    return j_inf, j_friends, j_profile, j_lk
 
-if __name__ == '__main__':
-    run_scraper()
+run_scraper()
