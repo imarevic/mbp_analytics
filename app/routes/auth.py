@@ -1,5 +1,5 @@
-from ...scraping import scraper as sc
-from ...scraping.logic import consts as c
+from ..scraping import scraper as sc
+from ..scraping.logic import consts as c
 import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -39,14 +39,14 @@ def login():
 @bp.route('/logout', methods=['GET'])
 def logout():
     session.clear()
-    return redirect(url_for('login'))
+    return redirect(url_for('.login'))
 
 # check if user is logged in on every request
 @bp.before_app_request
 def load_logged_in_user():
-    user_id = sesion.get('user_id')
+    user_id = session.get('user_id')
     if user_id == None:
-        g.user
+        g.user = None
     else:
         g.user = c.user
 
@@ -56,7 +56,7 @@ def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user == None:
-            return redirect(url_for('login'))
+            return render_template('login.html')
 
         return view(**kwargs)
 

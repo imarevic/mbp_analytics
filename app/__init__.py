@@ -9,7 +9,7 @@ def create_app():
     app.config.from_pyfile('config.py', silent=True)
 
     # register route blueprints
-    from .routes import login, dashboard
+    from .routes import auth, dashboard
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
 
