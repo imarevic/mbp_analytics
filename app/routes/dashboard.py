@@ -1,13 +1,15 @@
 from flask import (
-    Blueprint, flash, redirect, render_template, request
+    Blueprint, flash, g, redirect, render_template, request, url_for
 )
+from .auth import login_required
 
-bp = Blueprint('dashbaord', __name__)
+bp = Blueprint('dashboard', __name__)
 
-# login route
+# index route
 @bp.route('/', methods=['GET'])
 @bp.route('/index', methods=['GET'])
+@bp.route('/dashboard', methods=['GET'])
+@login_required
 def index():
-    # check if user logged in
-    # and reroute to login page if not
-    return 'Index Page Test'
+    # render dashboard
+    return render_template('dashboard.html')

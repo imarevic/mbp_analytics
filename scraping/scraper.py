@@ -3,6 +3,7 @@ import tests.test as t
 import logic.scraping as sc
 from logic.helpers import check_page_loaded, pandas_to_json
 from logic.processing import process_data
+from logic.consts import inf_data, friends_data, profile_data, lk_data
 
 
 def run_scraper():
@@ -23,7 +24,6 @@ def run_scraper():
                                                     'd_friends_dict',
                                                     'd_profile_dict',
                                                     'd_lk_dict')
-    j_inf, j_friends, j_profile, j_lk = process_data(d_inf, d_friends, d_profile, d_lk)
-    return j_inf, j_friends, j_profile, j_lk
 
-run_scraper()
+    inf_data, friends_data, profile_data, lk_data = process_data(d_inf, d_friends, d_profile, d_lk)
+    # TODO: close driver

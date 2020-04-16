@@ -9,8 +9,8 @@ login_key = "_58_login"
 pw_key = "_58_password"
 remember_key = "_58_rememberMe"
 # login infos
-user = u_name
-password = pw
+user = None
+password = None
 
 # base urls
 home_base_url = "https://mybigpoint.tennis.de/group/"
@@ -25,3 +25,9 @@ profile_col_names = ['lk', 'race_position', 'race_position_in_club', 'race_point
                       'result_home_singles_career', 'result_away_singles_career',
                       'result_tiebreak_singles_season', 'result_tiebreak_singles_career',
                       'result_match_tiebreak_singles_season', 'result_match_tiebreak_singles_career']
+
+# json data placeholders
+inf_data = None
+friends_data = None
+profile_data = None
+lk_data = None
