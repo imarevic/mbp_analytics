@@ -7,4 +7,4 @@ instance/
 chromedriver
 
 # ignore local login data
-scraping/logic/login_data.py
+app/scraping/logic/login_data.py
