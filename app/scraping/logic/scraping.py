@@ -16,6 +16,12 @@ def create_driver(browser_type):
     elif browser_type == "Safari":
         return webdriver.Safar()
 
+def close_driver(driver):
+    """
+    closes the webdriver session explicitly.
+    """
+    driver.close()
+
 # === log-in === #
 def login(driver):
 
@@ -178,5 +184,5 @@ def get_lk_details(driver, year):
             data_lk_dict['result'].append(row[2].find('img', alt=True)['alt'].strip()) if (row_length==6 and row[2].text.strip() != '-') else data_lk_dict['result'].append('irrelevant')
             data_lk_dict['lk_points'].append(row[3].text.strip()) if row_length==6 else data_lk_dict['lk_points'].append('irrelevant')
             data_lk_dict['bonus_points'].append("n/a")
-        
+
     return data_lk_dict

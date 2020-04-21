@@ -1,1 +1,13 @@
-<p>Login Page</p>
+{% extends 'base.html' %}
+
+<h1>{% block title %}Log-in{% endblock %}</h1>
+
+{% block content %}
+  <form class="" method="post">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="text" name="password" id="password" required>
+    <button>Login</button>
+  </form>
+{% endblock %}

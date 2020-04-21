@@ -13,6 +13,9 @@ Profil:
 
 todos:
 =====
-- scrape all content and create pandas dfs
-- refactor crawler code
-- create REST API
+- create "loading data..." page while scraping
+- use tailwind css for styling
+- implement json API for grafana
+- pass json data to grafana
+- reference grafana in dashboard iframe
+- hide webdriver

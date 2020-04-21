@@ -2,23 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>{% block title %}{% endblock %} - mbp analytics</title>
   </head>
   <nav>
     <h1>mbp-analytics</h1>
     <ul>
-      {% ig g.user %}
+      {% if g.user %}
         <li><span>{{ g.user['username'] }}</span>
         <li><a href="{{ url_for('auth.logout') }}">Log-out</a>
       {% else %}
         <li><a href="{{ url_for('auth.login') }}">Log-in</a>
+      {% endif %}
     </ul>
   </nav>
   <body>
     {% for message in get_flashed_messages() %}
       <div class="todo">{{ message }}</div>
     {% endfor %}
-    {% block content %} {% endblock %}
+    {% block content %}{% endblock %}
   </body>
 </html>
