@@ -3,11 +3,26 @@
 <h1>{% block title %}Log-in{% endblock %}</h1>
 
 {% block content %}
-  <form class="" method="post">
+
+  <div id="loading">
+    <img id="loading-image" src="static/loader_animation.gif" alt="Getting data ...">
+    <p class="">Getting data ...</p>
+  </div>
+
+  <form class="" id="login-form" method="post">
     <label for="username">Username</label>
     <input type="text" name="username" id="username" required>
     <label for="password">Password</label>
     <input type="text" name="password" id="password" required>
-    <button>Login</button>
+    <button onclick="showLoader()">Login</button>
   </form>
+
+  <script type="text/javascript">
+
+    function showLoader() {
+      document.getElementById('login-form').style.display = "none";
+      document.getElementById('loading').style.display = "block";
+    };
+    
+  </script>
 {% endblock %}

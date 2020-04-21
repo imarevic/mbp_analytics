@@ -7,6 +7,7 @@ def create_app():
     # create and config the app
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_pyfile('config.py', silent=True)
+    app.static_folder = 'static'
 
     # register route blueprints
     from .routes import auth, dashboard
