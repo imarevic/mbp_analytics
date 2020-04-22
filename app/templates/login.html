@@ -13,7 +13,7 @@
     <label for="username">Username</label>
     <input type="text" name="username" id="username" required>
     <label for="password">Password</label>
-    <input type="text" name="password" id="password" required>
+    <input type="password" name="password" id="password" required>
     <button onclick="showLoader()">Login</button>
   </form>
 
@@ -23,6 +23,6 @@
       document.getElementById('login-form').style.display = "none";
       document.getElementById('loading').style.display = "block";
     };
-    
+
   </script>
 {% endblock %}
