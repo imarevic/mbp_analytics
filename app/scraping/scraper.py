@@ -4,7 +4,7 @@ import app.scraping.logic.scraping as sc
 from app.scraping.logic.helpers import check_page_loaded, pandas_to_json
 from app.scraping.logic.processing import process_data
 from app.scraping.logic.consts import inf_data, friends_data, profile_data, lk_data
-
+#import time
 
 def run_scraper():
     """

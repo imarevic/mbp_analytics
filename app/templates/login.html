@@ -3,25 +3,48 @@
 <h1>{% block title %}Log-in{% endblock %}</h1>
 
 {% block content %}
+<div class="bg-gray-300 h-screen">
 
-  <div id="loading">
-    <img id="loading-image" src="static/loader_animation.gif" alt="Getting data ...">
-    <p class="">Getting data ...</p>
+  <div class="loading" id="loading-icon">
+    <img class="transform scale-150" id="loading-image" src="static/loader_animation.gif" alt="Getting data ...">
+  </div>
+  <div class="loading" id="loading-txt">
+    <p class="text-gray-700 font-bold">Getting data ...</p>
   </div>
 
-  <form class="" id="login-form" method="post">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <button onclick="showLoader()">Login</button>
-  </form>
+  <div class="flex justify-center py-12">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" id="login-form" method="post">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="username">Username</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" id="username" required>
+      </div>
+      <div class="mb-6">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" id="password" required>
+      </div>
+      <div class="flex items center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="showLoader()">Login</button>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
 
   <script type="text/javascript">
 
     function showLoader() {
+      // hide login-form and button
       document.getElementById('login-form').style.display = "none";
-      document.getElementById('loading').style.display = "block";
+      document.getElementById('login-button').style.display = "none";
+      // show loader
+      var loading_icon = document.getElementById('loading-icon');
+      loading_icon.removeAttribute("style");
+      loading_icon.classList.add("flex", "justify-center", "py-12");
+      var loading_txt = document.getElementById('loading-txt');
+      loading_txt.removeAttribute("style");
+      loading_txt.classList.add("flex", "justify-center");
     };
 
   </script>
