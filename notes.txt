@@ -13,9 +13,8 @@ Profil:
 
 todos:
 =====
-- create "loading data..." page while scraping
-- use tailwind css for styling
 - implement json API for grafana
 - pass json data to grafana
 - reference grafana in dashboard iframe
 - hide webdriver
+- fix input validation on log-in form (should flash error message)
