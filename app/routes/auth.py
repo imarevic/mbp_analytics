@@ -1,6 +1,6 @@
 from ..scraping import scraper as sc
 from ..scraping.logic import consts as c
-import functools
+import functools, sys
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -16,8 +16,8 @@ def login():
         error = None
 
         # check if form fields have data entered
-        if c.user == None or c.password == None:
-            error = 'Please enter a username and password.'
+        if c.user == "" or c.password == "":
+            error = 'Please enter a username and password!'
 
         # no error:
         # get data through scraper and
@@ -32,6 +32,7 @@ def login():
             return redirect(url_for('index'))
 
         # if error occured flash it
+        print(error, file=sys.stdout)
         flash(error)
     return render_template('login.html')
 
