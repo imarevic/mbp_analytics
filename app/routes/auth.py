@@ -32,7 +32,6 @@ def login():
             return redirect(url_for('index'))
 
         # if error occured flash it
-        print(error, file=sys.stdout)
         flash(error)
     return render_template('login.html')
 
@@ -46,7 +45,7 @@ def logout():
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
-    if user_id == None:
+    if user_id == None or user_id == "":
         g.user = None
     else:
         g.user = c.user

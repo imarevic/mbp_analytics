@@ -11,7 +11,7 @@
       <h1 class="text-white text-center uppercase font-bold px-4 py-2 m-2">mbp-analytics</h1>
       <ul class="flex justify-around text-grey-700 font-bold">
         {% if g.user %}
-          <li class="bg-gray-500 rounded px-4 py-2 m-2" ><span>{{ g.user['username'] }}</span>
+          <li class="px-4 py-2 m-2" ><span>{{ g.user }}</span>
           <li class="bg-gray-500 hover:bg-gray-700 rounded focus:outline-none focus:shadow-outline px-4 py-2 m-2"><a href="{{ url_for('auth.logout') }}">Log-out</a>
         {% else %}
           <li class="bg-gray-500 hover:bg-gray-700 rounded focus:outline-none focus:shadow-outline px-4 py-2 m-2" id="login-button"><a href="{{ url_for('auth.login') }}">Log-in</a>
