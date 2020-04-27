@@ -12,7 +12,7 @@ In order to use the application a valid account is required at https://mybigpoin
 - Grafana: `https://grafana.com/grafana/download`
 
 ---
-**Setup (linux only)**
+**Setup (Linux only)**
 
 - @@
 - change to following configurations in `/etc/grafana/grafana.ini`:
