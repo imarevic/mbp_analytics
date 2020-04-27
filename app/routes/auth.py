@@ -27,7 +27,7 @@ def login():
             session.clear()
             session['user_id'] = c.user
             # run scraper to get data
-            sc.run_scraper()
+            #sc.run_scraper()
             # return db page
             return redirect(url_for('index'))
 
