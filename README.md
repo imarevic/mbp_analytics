@@ -7,12 +7,12 @@ In order to use the application a valid account is required at https://mybigpoin
 > **Note**: The setup to make this analytics dashboard work on your local machine involves a few steps (see below). This application is for demonstration purposes only and will not be hosted in a production environment.
 
 ---
-Dependencies
+**Dependencies**
 - Python: `https://www.python.org/downloads/`
 - Grafana: `https://grafana.com/grafana/download`
 
 ---
-Setup (linux only)
+**Setup (linux only)**
 
 - @@
 - change to following configurations in `/etc/grafana/grafana.ini`:
@@ -38,7 +38,7 @@ password: admin
 
 
 ---
-Usage
+**Usage**
 
 - start the webserver via `bash start.sh` in root of this repo.
 
@@ -48,6 +48,6 @@ Usage
 
 
 ---
-License
+**License**
 
 Apache Software License 2.0
