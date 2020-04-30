@@ -10,9 +10,10 @@ def create_app():
     app.static_folder = 'static'
 
     # register route blueprints
-    from .routes import auth, dashboard
+    from .routes import auth, dashboard, data
     app.register_blueprint(auth.bp)
     app.register_blueprint(dashboard.bp)
+    app.register_blueprint(data.bp)
     app.add_url_rule('/', endpoint='index')
 
     return app

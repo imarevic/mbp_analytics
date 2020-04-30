@@ -15,17 +15,21 @@ In order to use the application a valid account is required at https://mybigpoin
 **Setup (Linux only)**
 
 - @@
+- install grafana json plugin:
+
+ `sudo grafana-cli plugins install simpod-json-datasource`
+
 - change to following configurations in `/etc/grafana/grafana.ini`:
 ```bash
 allow_embedding: true
 cookie_samesite: none
 ```
-- start Grafana server and check status
+- start Grafana server and check status.
 ```bash
 sudo service grafana-server start
 sudo service grafana-server status
 ```
-- navigate to `http://localhost:3000/` in your browser
+- navigate to `http://localhost:3000/` in your browser.
 - login with following credentials:
 ```bash
 user: admin
@@ -33,7 +37,7 @@ password: admin
 ```
 - navigate to `+ --> Import --> Upload json File` and select the file `gf_dashbaord.json` from `dashboard` directory of this repo.
 
-- open the dashboard in grafana and navigate to `Share dasboard`. Then navigate to the tab `Snapshot` and create a `Local Snapshot`. Copy this link into the `src` attribute of of the `iframe` tag in `/app/templates/dashboard.html`.
+- open the dashboard in grafana and navigate to `Share dashboard`. Then navigate to the tab `Snapshot` and create a `Local Snapshot`. Copy this link into the `src` attribute of the `iframe` tag in `/app/templates/dashboard.html`.
 
 
 ---
@@ -41,9 +45,9 @@ password: admin
 
 - start the webserver via `bash start.sh` in root of this repo.
 
-- in your browser go to `http://127.0.0.1:5000/`
+- in your browser go to `http://127.0.0.1:5000/`.
 
-- login with your credentials and wait for data to be loaded.
+- login with your mybigpoint credentials and wait for data to be loaded.
 
 
 ---
