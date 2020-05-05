@@ -2,9 +2,10 @@ import pandas as pd
 from .helpers import pandas_to_json
 from .consts import profile_col_names
 pd.set_option('display.max_columns', 40)
+import sys
 
 # data processing
-def process_data(inf_dict, friends_dict, profile_dict, lk_dict):
+def process_data(inf_dict, friends_dict, profile_dict, lk_dict, final_data_dict):
     # convert dicts to pandas dfs
     inf_df = pd.DataFrame(inf_dict, index=[0])
     friends_df = pd.DataFrame(friends_dict)
@@ -22,12 +23,13 @@ def process_data(inf_dict, friends_dict, profile_dict, lk_dict):
     # lk_df:
     lk_df = lk_df[lk_df['result'] != 'irrelevant']
     lk_df['match_type'] = lk_df.apply(lambda x: 'doubles' if x['lk_points'] == '-' else 'singles', axis=1)
-    # return json objects
-    inf_json = pandas_to_json(inf_df)
-    friends_json = pandas_to_json(friends_df)
-    profile_json = pandas_to_json(profile_df)
-    lk_json = pandas_to_json(lk_df)
-    return inf_json, friends_json, profile_json, lk_json
+    # return final data dict
+    final_data_dict['Info Data'][0]['rows'] = inf_df.values.tolist()
+    final_data_dict['Friends Data'][0]['rows'] = friends_df.values.tolist()
+    final_data_dict['Profile Data'][0]['rows'] = profile_df.values.tolist()
+    final_data_dict['LK Data'][0]['rows'] = lk_df.values.tolist()
+
+    return final_data_dict
 
 def split_wins_and_losses(df, separator):
     """

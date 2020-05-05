@@ -2,6 +2,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+import pickle
 
 # helper functions
 def check_page_loaded(driver, delay, elem_type, elem_name):
@@ -52,3 +53,17 @@ def merge_dict_of_dicts(list_of_dicts):
 
     final_dict.update((k, [item for sublist in v for item in sublist]) for k,v in final_dict.items())
     return final_dict
+
+def save_obj(obj, name):
+    """
+    saves any python object to file
+    """
+    with open(name + '.pkl', 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+def load_obj(name):
+    """
+    loads any python object from file
+    """
+    with open(name + '.pkl', 'rb') as f:
+        return pickle.load(f)

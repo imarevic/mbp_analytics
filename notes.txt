@@ -13,8 +13,8 @@ Profil:
 
 todos:
 =====
-- implement json API for grafana
-- pass json data to grafana
-- reference grafana in dashboard iframe
+- create dashboard in grafana
+- save grafana dasboard file in directory "dashboard"
+- create python package of the app and test installing it
 - hide webdriver
-- fix input validation on log-in form (should flash error message)
+- finalize documentation (e.g. install instructions, architecture)

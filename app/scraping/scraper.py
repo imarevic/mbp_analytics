@@ -1,11 +1,10 @@
 # imports
 import app.scraping.tests.test as t
 import app.scraping.logic.scraping as sc
-from app.scraping.logic.helpers import check_page_loaded, pandas_to_json
+from app.scraping.logic.helpers import check_page_loaded, pandas_to_json, save_obj
 from app.scraping.logic.processing import process_data
-from app.scraping.logic.consts import inf_data, friends_data, profile_data, lk_data
-#import time
-
+from app.scraping.logic.consts import final_data_init
+import time, sys
 def run_scraper():
     """
     main entry point of the program.
@@ -25,6 +24,12 @@ def run_scraper():
     #                                                'd_profile_dict',
     #                                                'd_lk_dict')
 
-    inf_data, friends_data, profile_data, lk_data = process_data(d_inf, d_friends, d_profile, d_lk)
+    data_f = process_data(d_inf,
+                             d_friends,
+                             d_profile,
+                             d_lk,
+                             final_data_init)
+    # write data to disk
+    save_obj(data_f, 'final_data')
     # close driver
     sc.close_driver(driver)

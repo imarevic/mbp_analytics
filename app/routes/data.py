@@ -1,5 +1,7 @@
 from flask_cors import CORS
 from flask import jsonify
+from ..scraping.logic import helpers as h
+import sys
 from flask import (
     Blueprint, request
 )
@@ -30,31 +32,6 @@ def data_query():
     if request.json['targets'][0]['type'] == 'table':
         series = request.json['targets'][0]['target']
         # add data to body
-        bodies = {'Info Data': [{
-        "columns":[
-          {"text":"Time","type":"time"},
-          {"text":"Country","type":"string"},
-          {"text":"Number","type":"number"}
-        ],
-        "rows":[
-          [1234567,"SE",123],
-          [1234567,"DE",231],
-          [1234567,"US",321]
-        ],
-        "type":"table"
-        }], 'Friends Data': [{
-        "columns":[
-          {"text":"Time","type":"time"},
-          {"text":"Country","type":"string"},
-          {"text":"Number","type":"number"}
-        ],
-        "rows":[
-          [1234567,"BE",123],
-          [1234567,"GE",231],
-          [1234567,"PS",321]
-        ],
-        "type":"table"
-        }]}
-
+        bodies = h.load_obj('final_data')
         # create response object and return it
         return jsonify(bodies[series])
