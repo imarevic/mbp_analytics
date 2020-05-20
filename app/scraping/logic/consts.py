@@ -1,4 +1,5 @@
-from .login_data import u_name, pw
+# uncomment when reading test user data from file
+#from .login_data import u_name, pw
 
 # login url
 login_url = "https://mybigpoint.tennis.de"
