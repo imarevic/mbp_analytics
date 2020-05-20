@@ -18,7 +18,9 @@ In order to use the application a valid account is required at https://mybigpoin
 ---
 **Setup (Linux only)**
 
-- @@
+- install all Python dependencies:
+  `pip install requirements.txt`
+  
 - install grafana json plugin:
 
  `sudo grafana-cli plugins install simpod-json-datasource`
