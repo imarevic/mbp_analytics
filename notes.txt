@@ -13,6 +13,5 @@ Profil:
 
 todos:
 =====
-- create python package of the app and test installing it
-- hide webdriver
-- finalize documentation (e.g. install instructions, architecture)
+- prettify dashboard
+- hide webdriver (depending on demo mode)
