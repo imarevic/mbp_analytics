@@ -39,7 +39,7 @@ sudo service grafana-server status
 user: admin
 password: admin
 ```
-- navigate to `+ --> Import --> Upload json File` and select the file `gf_dashbaord.json` from the `dashboard` directory of this repo.
+- navigate to `+ --> Import --> Upload json File` and select the file `gf_dashboard.json` from the `dashboard` directory of this repo.
 
 - open the dashboard in grafana and navigate to `Share dashboard`. Then navigate to the tab `Snapshot` and create a `Local Snapshot`. Copy this link into the `src` attribute of the `iframe` tag in `/app/templates/dashboard.html`.
 
